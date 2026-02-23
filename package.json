@@ -1,0 +1,13 @@
+{
+  "name": "rgaa-batch-testing",
+  "version": "1.0.0",
+  "description": "Tests d'accessibilité RGAA sur un échantillon de pages",
+  "main": "cli.js",
+  "scripts": {
+    "test": "node cli.js urls.txt"
+  },
+  "dependencies": {
+    "minimist": "^1.2.8",
+    "playwright": "^1.50.0"
+  }
+}
