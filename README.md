@@ -40,18 +40,28 @@ npx playwright install
 
 Par défaut : chrome + fenêtre visible
 
-## Exemple
+## Exemples d'utilisation
 
-NB : Préférer le mode visible car sans le mode visible des erreurs peuvent apparaître
-
-### Avec Google Chrome en mode visible
 ```bash
-# Lancer tous les tests
-node cli.js urls.txt --browser chrome
+# Lancer tous les tests sur Chrome (navigateur par défaut)
+node cli.js urls.txt
+```
+```bash
+# Lancer tous les tests explicitement avec Firefox
+# (ou un autre navigateur)
+node cli.js urls.txt --browser firefox
+```
+```bash
 # Lancer le test 8.3
 node cli.js urls.txt --browser chrome --tests rgaa-8-3
+```
+```bash
 # Lancer le test 8.3 (version courte)
-node cli.js urls.txt -b chrome -t rgaa-8-3 
+node cli.js urls.txt -b chrome -t rgaa-8-3
+```
+```bash
 # Lancer en mode sans fenêtre
 node cli.js urls.txt --browser chrome --headless
 ```
+
+NB : Préférer le mode visible car sans le mode visible des erreurs peuvent apparaître
