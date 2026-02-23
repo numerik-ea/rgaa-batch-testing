@@ -2,12 +2,87 @@
   "name": "rgaa-batch-testing",
   "version": "1.0.0",
   "description": "Tests d'accessibilité RGAA sur un échantillon de pages",
-  "main": "cli.js",
+  "main": "electron-main.js",
   "scripts": {
-    "test": "node cli.js urls.txt"
+    "test": "node cli.js urls.txt",
+    "gui": "node gui.js",
+    "electron": "electron .",
+    "build:win": "electron-builder --win",
+    "build:win:installer": "electron-builder --win --config.win.target=nsis",
+    "build:win:portable": "electron-builder --win --config.win.target=portable",
+    "build:mac": "electron-builder --mac",
+    "build:mac:installer": "electron-builder --mac --config.mac.target=dmg",
+    "build:mac:portable": "electron-builder --mac --config.mac.target=zip",
+    "generate-icon": "node scripts/generate-icon.js"
   },
   "dependencies": {
     "minimist": "^1.2.8",
     "playwright": "^1.50.0"
+  },
+  "devDependencies": {
+    "electron": "^34.5.8",
+    "electron-builder": "^25.1.8",
+    "png-to-ico": "^3.0.1",
+    "png2icons": "^2.0.1"
+  },
+  "build": {
+    "appId": "fr.rgaa.batch-testing",
+    "productName": "RGAA Batch Testing",
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false
+    },
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        },
+        {
+          "target": "zip",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
+      ],
+      "category": "public.app-category.developer-tools"
+    },
+    "dmg": {
+      "writeUpdateInfo": false
+    },
+    "asarUnpack": [
+      "node_modules/playwright/**/*",
+      "node_modules/playwright-core/**/*"
+    ],
+    "files": [
+      "**/*",
+      "!urls.txt",
+      "!dist/**",
+      "!**/*.md",
+      "!node_modules/.cache/**"
+    ]
   }
 }
