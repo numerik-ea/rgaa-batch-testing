@@ -42,25 +42,29 @@ Par défaut : chrome + fenêtre visible
 
 ## Exemples d'utilisation
 
+- Lancer tous les tests sur Chrome (navigateur par défaut)
 ```bash
-# Lancer tous les tests sur Chrome (navigateur par défaut)
 node cli.js urls.txt
 ```
+
+- Lancer tous les tests explicitement avec Firefox  
+(ou un autre navigateur)
 ```bash
-# Lancer tous les tests explicitement avec Firefox
-# (ou un autre navigateur)
 node cli.js urls.txt --browser firefox
 ```
+
+- Lancer le test 8.3
 ```bash
-# Lancer le test 8.3
 node cli.js urls.txt --browser chrome --tests rgaa-8-3
 ```
+
+- Lancer le test 8.3 (version courte)
 ```bash
-# Lancer le test 8.3 (version courte)
 node cli.js urls.txt -b chrome -t rgaa-8-3
 ```
+
+- Lancer en mode sans fenêtre
 ```bash
-# Lancer en mode sans fenêtre
 node cli.js urls.txt --browser chrome --headless
 ```
 
