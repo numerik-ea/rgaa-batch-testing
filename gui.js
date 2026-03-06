@@ -595,7 +595,7 @@ function startServer(port = PORT) {
   });
 }
 
-module.exports = { startServer };
+module.exports = { startServer, findPidOnPort, killPid };
 
 function findPidOnPort(port) {
   const { execSync } = require('child_process');
