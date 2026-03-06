@@ -8,11 +8,11 @@ const BROWSERS = ['chromium', 'chrome', 'firefox', 'webkit'];
  * @param {string[]} urls
  * @param {object[]} tests    - tableau de { id, title, script }
  * @param {object}   options
- * @param {string}   options.browser   - 'chromium' | 'chrome' | 'firefox' | 'webkit' (défaut: 'chromium')
+ * @param {string}   options.browser   - 'chromium' | 'chrome' | 'firefox' | 'webkit' (défaut: 'chrome')
  * @param {boolean}  options.headless  - true = sans fenêtre, false = avec fenêtre (défaut: false)
  * @returns {Promise<object[]>}
  */
-async function run(urls, tests, { browser = 'chrome', headless = false } = {}) {
+async function run(urls, tests, { browser = 'chrome', headless = false, httpCredentials = null } = {}) {
   if (!BROWSERS.includes(browser)) {
     throw new Error(`Navigateur inconnu : "${browser}". Valeurs acceptées : ${BROWSERS.join(', ')}`);
   }
@@ -23,8 +23,16 @@ async function run(urls, tests, { browser = 'chrome', headless = false } = {}) {
   const browserInstance = await playwright[engine].launch(launchOptions);
   const report = tests.map(test => ({ test, results: [] }));
 
+  const contextOptions = {};
+  if (httpCredentials && httpCredentials.username) {
+    contextOptions.httpCredentials = {
+      username: httpCredentials.username,
+      password: httpCredentials.password || '',
+    };
+  }
+
   for (const url of urls) {
-    const context = await browserInstance.newContext();
+    const context = await browserInstance.newContext(contextOptions);
     const page = await context.newPage();
 
     try {
